@@ -188,3 +188,12 @@ zephyr_udc0: &usbd {
         };
     };
 };
+
+&clock {
+    status = "okay";
+};
+
+&power {
+    status = "okay";
+};
+
