@@ -1,8 +1,0 @@
-board:
-  name: CM1000
-  vendor: OdderonLab
-  socs:
-  - name: nrf52840
-    variants:
-    - name: zmk
-

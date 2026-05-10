@@ -1,0 +1,9 @@
+file_format: 1
+type: board
+format: version
+board:
+  name: cm1000
+  vendor: OdderonLab
+  revision_format: number
+  revisions:
+    - name: 1
