@@ -6,6 +6,8 @@
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <nordic/nrf52840.dtsi>
+
 
 #include "cm1000-pinctrl.dtsi"
 #include "cm1000-layouts.dtsi"
@@ -188,16 +190,3 @@ zephyr_udc0: &usbd {
         };
     };
 };
-
-&clock {
-    status = "okay";
-};
-
-&power {
-    status = "okay";
-};
-
-&nvmc {
-    status = "okay";
-};
-
