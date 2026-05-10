@@ -197,7 +197,7 @@ zephyr_udc0: &usbd {
     status = "okay";
 };
 
-&flash-controller {
+&nvmc {
     status = "okay";
 };
 
