@@ -1,3 +1,24 @@
-include:
-- board: nice_nano_v2
-shield: cm1000
+name: Build ZMK Firmware
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "config/**"
+      - ".github/workflows/build.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialize ZMK
+        uses: zmkfirmware/zmk/.github/workflows/initialize-user-config@main
+
+      - name: Build firmware
+        uses: zmkfirmware/zmk/.github/workflows/build.yml@main
+        with:
+          board: cm1000
