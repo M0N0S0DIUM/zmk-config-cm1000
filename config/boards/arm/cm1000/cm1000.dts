@@ -92,3 +92,11 @@
 &gpio1 {
     status = "okay";
 };
+
+chosen {
+    zephyr,usb-device = &usbd;
+};
+
+&usbd {
+    status = "okay";
+};
