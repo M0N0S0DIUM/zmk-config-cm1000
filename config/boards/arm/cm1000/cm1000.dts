@@ -1,7 +1,7 @@
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
 #include <dt-bindings/zmk/matrix_transform.h>
-#include <dt-bindings/led/led.h> // <--- ADD THIS LINE
+#include <dt-bindings/led/led.h>
 
 #include "cm1000-pinctrl.dtsi"
 #include "cm1000-layouts.dtsi"
@@ -58,7 +58,7 @@
               <&gpio1 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 
-      matrix_transform0: default_transform {
+    matrix_transform0: default_transform {
         compatible = "zmk,matrix-transform";
         columns = <17>;
         rows = <6>;
@@ -79,24 +79,24 @@
             gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
         };
     };
+};
 
-    flash0: &flash0 {
-        partitions {
-            compatible = "fixed-partitions";
-            #address-cells = <1>;
-            #size-cells = <1>;
+&flash0 {
+    partitions {
+        compatible = "fixed-partitions";
+        #address-cells = <1>;
+        #size-cells = <1>;
 
-            code_partition: partition@1000 {
-                reg = <0x00001000 DT_SIZE_K(844)>;
-            };
+        code_partition: partition@1000 {
+            reg = <0x00001000 DT_SIZE_K(844)>;
+        };
 
-            storage_partition: partition@d4000 {
-                reg = <0x000d4000 DT_SIZE_K(128)>;
-            };
+        storage_partition: partition@d4000 {
+            reg = <0x000d4000 DT_SIZE_K(128)>;
+        };
 
-            boot_partition: partition@f4000 {
-                reg = <0x000f4000 DT_SIZE_K(48)>;
-            };
+        boot_partition: partition@f4000 {
+            reg = <0x000f4000 DT_SIZE_K(48)>;
         };
     };
 };
