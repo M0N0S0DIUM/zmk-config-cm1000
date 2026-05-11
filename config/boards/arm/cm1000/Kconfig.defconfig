@@ -21,3 +21,13 @@ config BT_CTLR
     default BT
 
 endif # BOARD_CM1000
+
+if ZMK_BACKLIGHT
+
+config PWM
+    default y
+
+config LED_PWM
+    default y
+
+endif # ZMK_BACKLIGHT
