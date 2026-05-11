@@ -20,3 +20,4 @@
 # board[ "cm1000" ]
 include:
   - board: cm1000
+    snippet: studio-rpc-usb-uart
