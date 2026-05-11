@@ -28,10 +28,10 @@
         compatible = "zmk,physical-layout";
         display-name = "Default Layout";
         transform = <&default_transform>;
-        kscan = <&kscan0>;
+        kscan = <&kscan>;
     };
 
-    kscan: kscan {
+    kscan0: kscan {
         // If the hardware does not use a switch matrix, change this to the
         // appropriate driver and update the properties below to match.
         // See https://zmk.dev/docs/config/kscan for supported key scan drivers.
