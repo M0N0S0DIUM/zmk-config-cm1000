@@ -15,7 +15,7 @@
         zephyr,sram = &sram0;
         zephyr,flash = &flash0;
         zmk,physical-layout = &default_layout;
-        zmk,underglow = &rgb_led_strip;  /* Updated to reference RGB LED strip */
+        zmk,underglow = &rgb_led_strip;
         zmk,display = &nice_view;
     };
 
@@ -66,17 +66,20 @@
 
         map = <
             RC(0,0) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9) RC(0,11) RC(0,12) RC(0,13) RC(0,14)
-		                                                RC(0,15)
+            RC(0,15)
             RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9) RC(1,10) RC(1,11) RC(1,12) RC(1,13)   RC(1,14) RC(2,15) RC(2,14)
 
             RC(2,0) RC(2,1) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10) RC(2,11) RC(2,12) RC(2,13)
 
-            RC(3,0) RC(3,1) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) RC(3,10) RC(3,11) RC(3,12) RC(3,13)                   
+            RC(3,0) RC(3,1) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) RC(3,10) RC(3,11) RC(3,12) RC(3,13)
             RC(3,16)
 
-            RC(4,0) RC(4,2) RC(4,3) RC(4,4) RC(4,5) RC(4,6) RC(4,7) RC(4,8) RC(4,9) RC(4,10) RC(4,11) RC(4,13) RC(4,15)			           RC(4,16)
+            RC(4,0) RC(4,2) RC(4,3) RC(4,4) RC(4,5) RC(4,6) RC(4,7) RC(4,8) RC(4,9) RC(4,10) RC(4,11) RC(4,13) RC(4,15)
+            RC(4,16)
 
-            RC(5,0) RC(5,1) RC(5,2) 			        RC(5,6) 		        RC(5,10) RC(5,12) RC(5,13) RC(5,14)           RC(5,15) RC(5,16)
+            RC(5,0) RC(5,1) RC(5,2)
+            RC(5,6)
+            RC(5,10) RC(5,12) RC(5,13) RC(5,14)           RC(5,15) RC(5,16)
         >;
     };
 
@@ -87,38 +90,25 @@
         };
     };
 
-    /* RGB LED Strip - Single DIN pin on P1.14 */
     rgb_led_strip: ws2812 {
         compatible = "worldsemi,ws2812-spi";
         reg = <0>;
-        
-        /* GPIO-based configuration for single DIN pin */
         din-gpio = <&gpio1 14 GPIO_ACTIVE_HIGH>;
-        
-        /* WS2812 timing parameters for SK6803/WS2812 */
         spi-max-frequency = <4000000>;
-        chain-length = <82>; /* number of LEDs */
+        chain-length = <82>;
         spi-one-frame = <0x70>;
         spi-zero-frame = <0x40>;
         color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
     };
 
-    /* Display is configured in cm1000-pinctrl.dtsi under &spi1_display */
-
-    /* Rotary Encoder Configuration */
     encoder: ec11 {
         compatible = "zmk,keymap-encoder";
         status = "okay";
-        
         pinctrl-0 = <&encoder_pins>;
         pinctrl-1 = <&encoder_sleep>;
         pinctrl-names = "default", "sleep";
-        
-        /* A/B phase pins for quadrature encoder */
-        a-gpio = <&gpio0 2 GPIO_ACTIVE_HIGH>;  /* ROTA - AIN0 */
-        b-gpio = <&gpio0 3 GPIO_ACTIVE_HIGH>;  /* ROTB - AIN1 */
-        
-        /* Enable trigger global thread for smooth operation */
+        a-gpio = <&gpio0 2 GPIO_ACTIVE_HIGH>;
+        b-gpio = <&gpio0 3 GPIO_ACTIVE_HIGH>;
         zmk,keymap-encoder;
     };
 
@@ -129,7 +119,6 @@
         pinctrl-1 = <&spi1_display_sleep>;
         pinctrl-names = "default", "sleep";
 
-        /* CS Pin: P1.13 */
         cs-gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>;
 
         nice_view: ls011b7dh03@0 {

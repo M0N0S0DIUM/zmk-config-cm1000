@@ -19,7 +19,6 @@
         };
     };
 
-    /* RGB LED strip - single DIN pin on P1.14 */
     rgb_led_default: rgb_led_default {
         group1 {
             psels = <NRF_PSEL(GPIO, 1, 14)>;
@@ -41,19 +40,16 @@
         };
     };
 
-    /* Encoder pins: ROTA on P0.2 (AIN0), ROTB on P0.3 (AIN1) */
     encoder_pins: encoder_pins {
         group1 {
-            psels = <NRF_PSEL(GPIO, 0, 2),
-                    NRF_PSEL(GPIO, 0, 3)>;
+            psels = <NRF_PSEL(GPIO, 0, 2), NRF_PSEL(GPIO, 0, 3)>;
             bias-pull-up;
         };
     };
 
     encoder_sleep: encoder_sleep {
         group1 {
-            psels = <NRF_PSEL(GPIO, 0, 2),
-                    NRF_PSEL(GPIO, 0, 3)>;
+            psels = <NRF_PSEL(GPIO, 0, 2), NRF_PSEL(GPIO, 0, 3)>;
             low-power-enable;
         };
     };
@@ -66,7 +62,6 @@
     pinctrl-1 = <&spi1_display_sleep>;
     pinctrl-names = "default", "sleep";
 
-    /* CS Pin: P1.13 */
     cs-gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>;
 
     nice_view: ls011b7dh03@0 {
