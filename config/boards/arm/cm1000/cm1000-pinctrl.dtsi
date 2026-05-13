@@ -19,12 +19,6 @@
         };
     };
 
-    rgb_led_default: rgb_led_default {
-        group1 {
-            psels = <NRF_PSEL(GPIO, 1, 14)>;
-        };
-    };
-
     spi1_display_default: spi1_display_default {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
@@ -36,34 +30,6 @@
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
                     <NRF_PSEL(SPIM_MOSI, 1, 12)>;
-            low-power-enable;
-        };
-    };
-
-    encoder_a: encoder_a {
-        group1 {
-            psels = <NRF_PSEL(GPIO, 0, 2)>;
-            bias-pull-up;
-        };
-    };
-
-    encoder_b: encoder_b {
-        group1 {
-            psels = <NRF_PSEL(GPIO, 0, 3)>;
-            bias-pull-up;
-        };
-    };
-
-    encoder_sleep_a: encoder_sleep_a {
-        group1 {
-            psels = <NRF_PSEL(GPIO, 0, 2)>;
-            low-power-enable;
-        };
-    };
-
-    encoder_sleep_b: encoder_sleep_b {
-        group1 {
-            psels = <NRF_PSEL(GPIO, 0, 3)>;
             low-power-enable;
         };
     };

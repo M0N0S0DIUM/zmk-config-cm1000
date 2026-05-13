@@ -90,15 +90,39 @@
         };
     };
 
+    /* Rotary Encoder - configured with GPIO properties (not pinctrl) */
     encoder: ec11 {
-        compatible = "zmk,keymap-encoder";
-        status = "okay";
-        /* Encoder pins using GPIO - ROTA on P0.2 (AIN0), ROTB on P0.3 (AIN1) */
-        a-gpio = <&gpio0 2 GPIO_ACTIVE_HIGH>;
-        b-gpio = <&gpio0 3 GPIO_ACTIVE_HIGH>;
-        zmk,keymap-encoder;
+        compatible = "alps,ec11";
+        a-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH | GPIO_PULL_UP>;  /* ROTA on P0.2 (AIN0) */
+        b-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH | GPIO_PULL_UP>;  /* ROTB on P0.3 (AIN1) */
+        steps = <80>;  /* Pulses per rotation for EC11 encoder */
+        status = "okay";  /* Enable the encoder */
+    };
+    /* RGB LED Strip - using GPIO DIN pin on P1.14 */
+    rgb_led_strip: ws2812 {
+        compatible = "worldsemi,ws2812-spi";
+        reg = <0>;
+        
+        /* Use GPIO-based configuration for single DIN pin */
+        din-gpio = <&gpio1 14 GPIO_ACTIVE_HIGH>;
+        
+        /* WS2812/SK6803 timing parameters */
+        spi-max-frequency = <4000000>;
+        chain-length = <82>;  /* Number of LEDs in the strip */
+        spi-one-frame = <0x70>;  /* Timing parameter for '1' bit */
+        spi-zero-frame = <0x40>;  /* Timing parameter for '0' bit */
+        
+        /* Color mapping: Green, Red, Blue (for SK6803) or RGB (for WS2812) */
+        color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
     };
 
+
+    /* Sensors node for encoders */
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&encoder>;  /* Reference the encoder we defined above */
+        triggers-per-rotation = <20>;  /* Number of sensor events per full rotation */
+    };
 
     &spi1_display {
         compatible = "nordic,nrf-spim";
