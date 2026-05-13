@@ -19,59 +19,60 @@
         };
     };
 
-    spi3_default: spi3_default {
+    /* RGB LED strip uses single DIN pin on P1.14 */
+    rgb_led_default: rgb_led_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 9)>,
-                    <NRF_PSEL(SPIM_MOSI, 1, 14)>;
+            psels = <NRF_PSEL(GPIO, 1, 14)>;
         };
     };
 
-    spi3_sleep: spi3_sleep {
+    spi1_display_default: spi1_display_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 9)>,
-                    <NRF_PSEL(SPIM_MOSI, 1, 14)>;
+            psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
+                    <NRF_PSEL(SPIM_MOSI, 1, 12)>;
+        };
+    };
+
+    spi1_display_sleep: spi1_display_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
+                    <NRF_PSEL(SPIM_MOSI, 1, 12)>;
+            low-power-enable;
+        };
+    };
+
+    encoder_pins: encoder_pins {
+        group1 {
+            psels = <NRF_PSEL(GPIO, 0, 2)>, /* ROTA - AIN0 */
+                    <NRF_PSEL(GPIO, 0, 3)>; /* ROTB - AIN1 */
+            bias-pull-up;
+        };
+    };
+
+    encoder_sleep: encoder_sleep {
+        group1 {
+            psels = <NRF_PSEL(GPIO, 0, 2)>,
+                    <NRF_PSEL(GPIO, 0, 3)>;
             low-power-enable;
         };
     };
 };
 
-&spi3 {
+&spi1_display {
     compatible = "nordic,nrf-spim";
     status = "okay";
-
-    pinctrl-0 = <&spi3_default>;
-    pinctrl-1 = <&spi3_sleep>;
+    pinctrl-0 = <&spi1_display_default>;
+    pinctrl-1 = <&spi1_display_sleep>;
     pinctrl-names = "default", "sleep";
 
-    led_strip: ws2812@0 {
-        compatible = "worldsemi,ws2812-spi";
+    /* CS Pin: P1.13 */
+    cs-gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>;
 
-        /* SPI */
-        reg = <0>; /* ignored, but necessary for SPI bindings */
-        spi-max-frequency = <4000000>;
-
-        /* WS2812 */
-        chain-length = <82>; /* number of LEDs */
-        spi-one-frame = <0x70>;
-        spi-zero-frame = <0x40>;
-        color-mapping = <LED_COLOR_ID_GREEN
-                         LED_COLOR_ID_RED
-                         LED_COLOR_ID_BLUE>;
-    };
-};
-
-&pinctrl {
-    spi1_default: spi1_default {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
-                    <NRF_PSEL(SPIM_MOSI, 1, 12)>;
-        };
-    };
-    spi1_sleep: spi1_sleep {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
-                    <NRF_PSEL(SPIM_MOSI, 1, 12)>;
-            low-power-enable;
-        };
+    nice_view: ls011b7dh03@0 {
+        compatible = "sharp,ls011b7dh03";
+        reg = <0>;
+        spi-max-frequency = <2000000>;
+        width = <160>;
+        height = <68>;
     };
 };
