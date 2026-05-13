@@ -90,27 +90,15 @@
         };
     };
 
-    rgb_led_strip: ws2812 {
-        compatible = "worldsemi,ws2812-spi";
-        reg = <0>;
-        din-gpio = <&gpio1 14 GPIO_ACTIVE_HIGH>;
-        spi-max-frequency = <4000000>;
-        chain-length = <82>;
-        spi-one-frame = <0x70>;
-        spi-zero-frame = <0x40>;
-        color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
-    };
-
     encoder: ec11 {
         compatible = "zmk,keymap-encoder";
         status = "okay";
-        pinctrl-0 = <&encoder_pins>;
-        pinctrl-1 = <&encoder_sleep>;
-        pinctrl-names = "default", "sleep";
+        /* Encoder pins using GPIO - ROTA on P0.2 (AIN0), ROTB on P0.3 (AIN1) */
         a-gpio = <&gpio0 2 GPIO_ACTIVE_HIGH>;
         b-gpio = <&gpio0 3 GPIO_ACTIVE_HIGH>;
         zmk,keymap-encoder;
     };
+
 
     &spi1_display {
         compatible = "nordic,nrf-spim";

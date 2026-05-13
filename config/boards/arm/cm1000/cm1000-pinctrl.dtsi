@@ -40,16 +40,30 @@
         };
     };
 
-    encoder_pins: encoder_pins {
+    encoder_a: encoder_a {
         group1 {
-            psels = <NRF_PSEL(GPIO, 0, 2), NRF_PSEL(GPIO, 0, 3)>;
+            psels = <NRF_PSEL(GPIO, 0, 2)>;
             bias-pull-up;
         };
     };
 
-    encoder_sleep: encoder_sleep {
+    encoder_b: encoder_b {
         group1 {
-            psels = <NRF_PSEL(GPIO, 0, 2), NRF_PSEL(GPIO, 0, 3)>;
+            psels = <NRF_PSEL(GPIO, 0, 3)>;
+            bias-pull-up;
+        };
+    };
+
+    encoder_sleep_a: encoder_sleep_a {
+        group1 {
+            psels = <NRF_PSEL(GPIO, 0, 2)>;
+            low-power-enable;
+        };
+    };
+
+    encoder_sleep_b: encoder_sleep_b {
+        group1 {
+            psels = <NRF_PSEL(GPIO, 0, 3)>;
             low-power-enable;
         };
     };
