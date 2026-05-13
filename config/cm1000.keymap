@@ -15,4 +15,4 @@
     };
 };
 
-&led_strip { chain-length = <82>; };
+&rgb_led_strip { chain-length = <82>; };
